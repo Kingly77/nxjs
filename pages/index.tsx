@@ -5,24 +5,57 @@ import App from "next/app";
 import {Button, Tooltip} from "@material-ui/core";
 import {useState} from "react";
 import P from './NowWhat'
+import axios from "axios";
 
+
+function Pop(props:any)
+{
+
+    let [stat , setStat] = useState(404);
+
+    (async ()=> {
+
+       let x =  await axios.get('http://localhost:3000/api/hello')
+
+        console.log(x);
+
+        setStat(x.data.age);
+
+
+    })();
+
+    return(
+        <>
+        <h1>{props.children}</h1>
+            {stat}
+        </>
+    )
+}
 
 export default function Home() {
 
     let [pie, setPie] = useState(0);
+
     return (
         <div className={styles.container}>
             <P/>
-            <h2>{pie}</h2>
+            <Tooltip title={`This Should:${pie}`}>
+            <div><h2>{pie}</h2></div>
+            </Tooltip>
+
             <Tooltip title={pie}>
                 <div>
-                    <Button variant='outlined' onClick={() => {
+                    <Button variant='contained' color='primary' onClick={() => {
                         setPie(pie + 1);
                     }}>
                         Add One
                     </Button>
                 </div>
             </Tooltip>
+
+
+            <Pop> test </Pop>
+
         </div>
     )
 }
