@@ -3,9 +3,17 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import App from "next/app";
 import {Button, Tooltip} from "@material-ui/core";
-import {useState} from "react";
+import {createContext, useState} from "react";
 import P from './NowWhat'
 import axios from "axios";
+
+
+
+let data= {
+
+}
+
+let Gbl = createContext(data);
 
 
 function Pop(props:any)
@@ -13,21 +21,22 @@ function Pop(props:any)
 
     let [stat , setStat] = useState(404);
 
-    (async ()=> {
+    let stuff = (async ()=> {
 
-       let x =  await axios.get('http://localhost:3000/api/hello')
+       let x =  await axios.get('/api/hello')
 
-        console.log(x);
+       // console.log(x);
 
         setStat(x.data.age);
+        return x.data;
 
-
-    })();
+    })
 
     return(
         <>
+            <Gbl.Provider value={stuff()}/>
+
         <h1>{props.children}</h1>
-            {stat}
         </>
     )
 }
