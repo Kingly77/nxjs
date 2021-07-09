@@ -1,5 +1,5 @@
 
-function pShow()
+function Plap()
 {
     return(
         <div>
@@ -11,4 +11,4 @@ function pShow()
 }
 
 
-export default pShow;
+export default Plap;

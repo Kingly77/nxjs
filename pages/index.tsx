@@ -4,8 +4,8 @@ import styles from '../styles/Home.module.css'
 import App from "next/app";
 import {Button, Tooltip} from "@material-ui/core";
 import {createContext, useState} from "react";
-import P from './NowWhat'
 import axios from "axios";
+import Plap from "./NowWhat";
 
 
 
@@ -13,7 +13,6 @@ let data= {
 
 }
 
-let Gbl = createContext(data);
 
 
 function Pop(props:any)
@@ -30,13 +29,12 @@ function Pop(props:any)
         setStat(x.data.age);
         return x.data;
 
-    })
+    })()
 
     return(
         <>
-            <Gbl.Provider value={stuff()}/>
-
         <h1>{props.children}</h1>
+            <p>{stat}</p>
         </>
     )
 }
@@ -47,7 +45,7 @@ export default function Home() {
 
     return (
         <div className={styles.container}>
-            <P/>
+            <Plap/>
             <Tooltip title={`This Should:${pie}`}>
             <div><h2>{pie}</h2></div>
             </Tooltip>
