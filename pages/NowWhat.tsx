@@ -4,7 +4,7 @@ function Plap()
     return(
         <div>
             <h1>
-                This was a success
+                Clicker
             </h1>
         </div>
     )
