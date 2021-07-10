@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import App from "next/app";
 import {Button, Card, CardContent, Grid, GridListTileBar, makeStyles, Tooltip, Typography} from "@material-ui/core";
-import {createContext, useState} from "react";
+import {createContext, FC, useEffect, useState} from "react";
 import axios from "axios";
 import Plap from "./NowWhat";
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
         border: 0,
         borderRadius: 3,
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-        color: 'white',
+        color: 'black',
         height: 48,
         padding: '0 30px',
     },
@@ -80,18 +80,19 @@ function Bog(props:any)
                         </Button>
                     </div>
                 </Tooltip>
-
             </CardContent>
-
         </Card>
     )
 }
 
 export default function Home() {
 
-    let [pie, setPie] = useState(0);
+
+    let [pie,setPie] =useState(0);
+
 
     let toBog = (val:number = 1)=>{setPie(pie+val); return pie};
+
     let toNo = () =>{
         if(pie > 0) {
             setPie(0)
@@ -99,6 +100,17 @@ export default function Home() {
         }
         return false;
     };
+
+    useEffect(()=>{
+
+        const si = setInterval(()=>
+        {
+            setPie(pie + 1);
+
+        },1000)
+
+        return ()=>clearInterval(si);
+    })
 
     return (
         <div className={styles.container}>
@@ -109,13 +121,13 @@ export default function Home() {
 
             <Grid container justifyContent="center" spacing={4}>
                 <Grid item>
-                    <Bog callMe="One" ros={toBog}/>
+                    <Bog callMe='one' ros={toBog}/>
                 </Grid>
                 <Grid item>
-                    <Bog callMe="Two" ros={toBog}/>
+
                 </Grid>
                 <Grid item>
-                    <Bog callMe="Reset" ros={toNo}/>
+
                 </Grid>
             </Grid>
 
